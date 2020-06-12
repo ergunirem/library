@@ -10,7 +10,7 @@ function Book(title, author, pages, read) {
     };
 }
 
-function addBookToLibrary(e) {
+function addBookToLocalStorage(e) {
     e.preventDefault();
 
     //Get the values from user's input
@@ -43,7 +43,7 @@ function getBooks() {
                     var bookItem = JSON.parse(item);
                     console.log(bookItem)
                     console.log(typeof bookItem)
-                    addBook(bookItem);
+                    addBookToTable(bookItem);
                }
             }
         }
@@ -52,7 +52,7 @@ function getBooks() {
         }
 }
 
-function addBook(bookObject) {
+function addBookToTable(bookObject) {
     const table = document.getElementById('table');
     table.style.width = '100%';
     table.setAttribute('border', '1');
@@ -75,5 +75,5 @@ function refreshPage () {
 }
   
 window.onload = getBooks();
-document.getElementById("submit").addEventListener('click', addBookToLibrary);
+document.getElementById("submit").addEventListener('click', addBookToLocalStorage);
 document.getElementById("submit").addEventListener('click', refreshPage);
