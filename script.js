@@ -1,5 +1,11 @@
-let myLibrary = new Array();
+// SELECTORS & EVENT LISTENERS
+window.onload = getBooks();
+document.getElementById("submit").addEventListener('click', addBookToLocalStorage);
+document.getElementById("submit").addEventListener('click', refreshPage);
+const delButtons = document.querySelectorAll('button');
+delButtons.forEach(delButton => delButton.addEventListener("click", del));
 
+// FUNCTIONS
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -20,8 +26,6 @@ function addBookToLocalStorage(e) {
     const select = document.getElementById("read");
     const option = select.options[select.selectedIndex];
     const read = option.text;
-    console.log( option.value );
-    console.log( option.text );
 
     //Create a new object with user's input
     const newBook = new Book(title, author, pages, read);
@@ -38,8 +42,6 @@ function getBooks() {
                 if (key.substring(0, 4) == "Book") {
                     var item = localStorage.getItem(key);
                     var bookItem = JSON.parse(item);
-                    console.log(bookItem)
-                    console.log(typeof bookItem)
                     addBookToTable(bookItem);
                }
             }
@@ -59,9 +61,16 @@ function addBookToTable(bookObject) {
     for (const prop in bookObject) {
         const td = document.createElement('td');
         td.appendChild(document.createTextNode(`${bookObject[prop]}`));
-        tr.appendChild(td)
+        tr.appendChild(td);
     };
 
+    const tdDelete = document.createElement('td');
+    const deleteButton = document.createElement('button');
+    deleteButton.id = `${bookObject['title']}`;
+    deleteButton.appendChild(document.createTextNode('\u{1f5d1}'));
+    tdDelete.appendChild(deleteButton);
+
+    tr.appendChild(tdDelete);
     tbdy.appendChild(tr);
     table.appendChild(tbdy);
 }
@@ -69,7 +78,12 @@ function addBookToTable(bookObject) {
 function refreshPage () {
     location.reload();
 }
-  
-window.onload = getBooks();
-document.getElementById("submit").addEventListener('click', addBookToLocalStorage);
-document.getElementById("submit").addEventListener('click', refreshPage);
+
+function del(e) {
+    localStorage.removeItem(`Book: ${e.target.id}`);
+    e.target.closest('tr').remove();
+}
+
+
+
+
