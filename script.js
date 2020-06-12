@@ -17,14 +17,11 @@ function addBookToLocalStorage(e) {
     const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
     const pages = document.getElementById("pages").value;
-    // if (document.getElementById("read").value == 'read') {
-    //     const read = 'already read'
-    // }
-    // else if (document.getElementById("read").value == 'on') {
-    //     const read = 'not read yet'
-    // }
-    const read = document.getElementById("read").value;
-    console.log(read)
+    const select = document.getElementById("read");
+    const option = select.options[select.selectedIndex];
+    const read = option.text;
+    console.log( option.value );
+    console.log( option.text );
 
     //Create a new object with user's input
     const newBook = new Book(title, author, pages, read);
@@ -60,7 +57,6 @@ function addBookToTable(bookObject) {
     const tr = document.createElement("tr");
 
     for (const prop in bookObject) {
-        // console.log(`bookObject = ${bookObject[prop]}`);
         const td = document.createElement('td');
         td.appendChild(document.createTextNode(`${bookObject[prop]}`));
         tr.appendChild(td)
