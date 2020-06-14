@@ -2,31 +2,26 @@
 window.onload = getBooks();
 document.getElementById("submit").addEventListener('click', addBookToLocalStorage);
 document.getElementById("submit").addEventListener('click', refreshPage);
-const delButtons = document.querySelectorAll('button');
+const delButtons = document.querySelectorAll('.delete');
 delButtons.forEach(delButton => delButton.addEventListener("click", del));
 
-//Get the modal
-const modal = document.getElementById("myModal");
-// Get the button that opens the modal
-const btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
-  }
-  
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
+// Modal selectors, event listeners & functions
+const newBook = document.querySelector("#myBtn");
+const modal = document.querySelector(".modal");
+const closeButton = document.querySelector(".close");
+
+newBook.addEventListener('click', function() {
+    modal.style.display = "flex";
+});
+
+closeButton.addEventListener('click', function(){
     modal.style.display = "none";
-  }
-  
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
+    title.style.backgroundColor = ''; 
+    author.style.backgroundColor = '';
+    genre.style.backgroundColor = '';
+    pages.style.backgroundColor = '';
+    form.reset();
+});
 
 // FUNCTIONS
 function Book(title, author, pages, read) {
@@ -41,6 +36,17 @@ function Book(title, author, pages, read) {
 
 function addBookToLocalStorage(e) {
     e.preventDefault();
+    
+    //Validity check
+    if (document.getElementById('pages').validity.valid == false) {
+        alert('Please enter a valid page number');
+        return;
+    };
+    if(document.getElementById('title').value === '' || document.getElementById('author').value === ''){
+        alert('A title and author is required');
+        return;
+    }
+  
 
     //Get the values from user's input
     const title = document.getElementById("title").value;
@@ -54,57 +60,58 @@ function addBookToLocalStorage(e) {
     const newBook = new Book(title, author, pages, read);
 
     // Put the object into storage
-    localStorage.setItem(`Book: ${title}`, JSON.stringify(newBook));
-    
+    localStorage.setItem(`Book: ${title}`, JSON.stringify(newBook));   
 }
 
 function getBooks() {
-        if (localStorage) {
-            for (var i = 0; i < localStorage.length; i++) {
-                var key = localStorage.key(i);
-                if (key.substring(0, 4) == "Book") {
-                    var item = localStorage.getItem(key);
-                    var bookItem = JSON.parse(item);
-                    addBookToTable(bookItem);
-               }
+    if (localStorage) {
+        for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            if (key.substring(0, 4) == "Book") {
+                var item = localStorage.getItem(key);
+                var bookItem = JSON.parse(item);
+                addBookToTable(bookItem);
             }
         }
-        else {
-            alert("Error: you don't have localStorage!");
-        }
+    }
+    else {
+        alert("Error: you don't have localStorage!");
+    }
 }
 
 function addBookToTable(bookObject) {
     const table = document.getElementById('table');
-    table.style.width = '100%';
-    table.setAttribute('border', '1');
     const tbdy = document.createElement('tbody');
     const tr = document.createElement("tr");
 
     for (const prop in bookObject) {
         const td = document.createElement('td');
+        td.id = prop;
         td.appendChild(document.createTextNode(`${bookObject[prop]}`));
         tr.appendChild(td);
     };
 
+    //Delete button
     const tdDelete = document.createElement('td');
     const deleteButton = document.createElement('button');
     deleteButton.id = `${bookObject['title']}`;
-    deleteButton.appendChild(document.createTextNode('\u{1f5d1}'));
+    deleteButton.className = 'delete';
+    deleteButton.appendChild(document.createTextNode('Delete'));
     tdDelete.appendChild(deleteButton);
-
     tr.appendChild(tdDelete);
+
+    //Append the whole row to the body and body to the table
     tbdy.appendChild(tr);
     table.appendChild(tbdy);
-}
-
-function refreshPage () {
-    location.reload();
 }
 
 function del(e) {
     localStorage.removeItem(`Book: ${e.target.id}`);
     e.target.closest('tr').remove();
+}
+
+function refreshPage () {
+    location.reload();
 }
 
 
