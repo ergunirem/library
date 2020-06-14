@@ -97,16 +97,15 @@ header h1 {
 
 /* THE MODAL */
 .modal {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
-    top: 0;
     z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
     display: none;
+    overflow: auto;
+    background-color: transparent;
+    backdrop-filter: blur(3px);
 }
 
 .modal-content {
@@ -114,18 +113,20 @@ header h1 {
     width: 50rem;
     background-color: white;
     border-radius: 0.8rem;
-    padding: 4rem;
+    padding: 20px;
     animation: popupA 0.3s linear 1;
+    overflow: auto;
 }
 
 .modal-content h1 {
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-family: 'Lora', serif;
+    text-align: center;
 }
 
 .modal-content input {
     width: 92%;
-    font-size: 1.7rem;
+    font-size: 1rem;
     font-family: 'Lora', serif;
     padding: 1rem 1.5rem;
     margin: 1rem auto;
@@ -141,7 +142,7 @@ header h1 {
 
 .modal-content select {
     width: 93%;
-    font-size: 1.7rem;
+    font-size: 1rem;
     font-family: 'Lora', serif;
     padding: 1rem 1.5rem;
     margin: 1rem auto;
@@ -152,14 +153,14 @@ header h1 {
 }
 
 .modal-content button {
-    float: right;
-    padding: 1rem 2rem 1rem 0.8rem;
+    float: inline-end;
+    padding: 0.8rem 1.7rem 0.8rem 0.5rem;
     margin: 2rem 1rem 0rem;
     font-size: 1.5rem;
     font-family: 'Lora', serif;
     color: white;
     background-color: #33c55f;
-    border-radius: 3px;
+    border-radius: 2px;
     cursor: pointer;
     border: none;
     outline: none;
