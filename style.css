@@ -1,22 +1,13 @@
 /* GENERAL */
-/* body {
-    background: url(patrick-tomasso-Oaqk7qqNh_c-unsplash.jpg);
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-} */
-
 body, html {
     height: 100%;
     background-image: url(andrew-ridley-jR4Zf-riEjI-unsplash.jpg);;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    backdrop-filter: blur(2px); 
 }
 
-/* HEADER */
+/* HEADER AND NEW BOOK BUTTON */
 header {
     position: relative;
     display: flex;
@@ -31,7 +22,7 @@ header {
     left: 25px;
     padding: 10px 30px 10px 10px;
     font-size: 20px;
-    font-family: 'Lora', serif;
+    font-family: 'Bellota', cursive;
     color: white;
     background-color: rgba(149, 231, 208, 0.9);
     border-radius: 3px;
@@ -43,92 +34,147 @@ header {
 #myBtn::before {
     content: "+ ";
     transition: 0.5s;
-    opacity: 0;
 }
 
 #myBtn:hover::before {
     padding-left: 1rem;
-    opacity: 1;
 }
 
 header h1 {
-    font-family: 'Lora', serif;
+    font-family: 'Bellota', cursive;
     font-size: 50px;
     margin: 30px 50px 50px 10px;
     color: whitesmoke;
 }
 
 /* TABLE */
-table { 
-    table-layout: fixed; 
-    width: auto;
-    margin-top: 3%;
-    margin-bottom: 20%;
-    margin-left: 5%; 
-    margin-right: 5%;
-    justify-content: center; 
-    border: 5px;
-    border-radius: 10px;
-    background-color: rgb(144, 142, 146, 0.9);
+.my-table { 
+    display: table;
+    width: 80%;
+    max-width: 1100px;
+    margin-bottom: 10px;
+    margin-left: 100px;
+    margin-top: 20px;
+    margin-right: 100px;    
+    background-color: rgba(117, 144, 163, 0.9);
+    color: whitesmoke;
+    border-color: whitesmoke;
 }
 
-thead {
+.my-table thead {
     display: table-header-group;
     vertical-align: middle;
-    border-color: inherit;
+    border-color: whitesmoke;
     text-align: center;
-    font-family: 'Lora', serif;
+    font-family: Verdana, Tahoma, sans-serif;
 }
 
-tbody {
+.my-table tbody {
     display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit
+    font-family: Verdana, Tahoma, sans-serif;
 }
 
-table td {
-    width: auto; 
-    height: auto; 
+.my-table tr {
+    display: table-row;
+    justify-content: center;
+    text-align: center;
+}
+
+.my-table th td {
+    display: table-cell;
+    padding: 8px 50px 20px 30px;
+    overflow: hidden; 
     font-family: 'Lora', serif;
-    border-radius: 20px;
-    /* color: black; */
-    /* background-color: white; */
-    /* box-shadow: 0 1px 0 0 rgba(0,0,0,0.3), 0 5px 10px 0 rgba(0,0,0,0.20); */
 }
 
-  
+.delete, .status {
+    max-width: 70px;
+    color: rgba(117, 144, 163);
+    background-color:whitesmoke;
+    font-size: small;
+
+}
 
 /* THE MODAL */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
     top: 0;
-    width: 80%; /* Full width */
-    height: 80%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-/* Modal Content/Box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    z-index: 1;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    display: none;
 }
-  
+
+.modal-content {
+    position: relative;
+    width: 50rem;
+    background-color: white;
+    border-radius: 0.8rem;
+    padding: 4rem;
+    animation: popupA 0.3s linear 1;
+}
+
+.modal-content h1 {
+    font-size: 2rem;
+    font-family: 'Lora', serif;
+}
+
+.modal-content input {
+    width: 92%;
+    font-size: 1.7rem;
+    font-family: 'Lora', serif;
+    padding: 1rem 1.5rem;
+    margin: 1rem auto;
+    background-color: rgb(214, 220, 238);
+    color: rgb(28, 79, 235);
+    border: none;
+    border-radius: 3px;
+}
+
+.modal-content input::placeholder {
+    color: rgb(90, 111, 172);
+}
+
+.modal-content select {
+    width: 93%;
+    font-size: 1.7rem;
+    font-family: 'Lora', serif;
+    padding: 1rem 1.5rem;
+    margin: 1rem auto;
+    background-color: rgb(214, 220, 238);
+    border: none;
+    border-radius: 3px;
+    color: rgb(90, 111, 172);
+}
+
+.modal-content button {
+    float: right;
+    padding: 1rem 2rem 1rem 0.8rem;
+    margin: 2rem 1rem 0rem;
+    font-size: 1.5rem;
+    font-family: 'Lora', serif;
+    color: white;
+    background-color: #33c55f;
+    border-radius: 3px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
 /* The Close Button */
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    align-items: left;
+    position: absolute;
+    top: 10px;
+    right: 1rem;
+    font-size: 4rem;
+    font-weight: 800;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
 }
   
 .close:hover,
